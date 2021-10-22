@@ -164,7 +164,7 @@ def run_ncet(plant, path, orders, plant_fname, param_fname, basis_fname, mc_runs
             bldg_table.to_csv(path + '/out/' + plant + time_folder + '/base_' + plant + 'buildingtable.csv')
         
         # Scale the direct costs based on the scaling table
-        dfNP = scale_direct_costs.scale_direct_costs(basis_fname, scaling_table, plant_characteristics, scalars_dict)
+        dfNP = scale_direct_costs.scale_direct_costs(path + basis_fname, scaling_table, plant_characteristics, scalars_dict)
 
         # Get the subaccount indices to accelerate the summing process below
         idx_dict = get_sub_account_iloc.get_sub_account_iloc(dfNP)
