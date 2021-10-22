@@ -132,14 +132,14 @@ def run_ncet(plant, path, orders, plant_fname, param_fname, basis_fname, mc_runs
     scheduler_table = pd.read_csv('scheduler_table.csv', index_col=0)
 
     # Make the directories if they don't exist (use the timestamp to avoid overwriting anythingS)
-    if not os.path.isdir('./out'):
-        os.mkdir('./out')
-    if not os.path.isdir('./out/' + plant):
-        os.mkdir('./out/' + plant)
+    if not os.path.isdir(path + '/out'):
+        os.mkdir(path + '/out')
+    if not os.path.isdir(path + '/out/' + plant):
+        os.mkdir(path + '/out/' + plant)
     time_folder = '/' + datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    os.mkdir('./out/' + plant + time_folder)
-    os.mkdir('./out/' + plant + time_folder + '/raw')
-    os.mkdir('./out/' + plant + time_folder + '/scaling_tables')
+    os.mkdir(path + '/out/' + plant + time_folder)
+    os.mkdir(path + '/out/' + plant + time_folder + '/raw')
+    os.mkdir(path + '/out/' + plant + time_folder + '/scaling_tables')
 
     # Run the cost modeling functions
     mc_dict_list = [ [] for _ in range(orders)]
@@ -154,14 +154,14 @@ def run_ncet(plant, path, orders, plant_fname, param_fname, basis_fname, mc_runs
         scaling_table, plant_characteristics = fill_scaling_table.fill_scaling_table(path, plant_fname, base=basis_fname, 
             scaling_table=df_scalars, scalars_dict=scalars_dict)
         if mc_runs==1:
-            scaling_table.to_csv('./out/' + plant + time_folder + '/base_' + plant + 'scaling_inputs.csv')
+            scaling_table.to_csv(path + '/out/' + plant + time_folder + '/base_' + plant + 'scaling_inputs.csv')
         elif save_all:
-            scaling_table.to_csv('./out/' + plant + time_folder + '/scaling_tables/mc_output_' + plant + 'scaling_inputs_' + str(i) + '.csv')
+            scaling_table.to_csv(path + '/out/' + plant + time_folder + '/scaling_tables/mc_output_' + plant + 'scaling_inputs_' + str(i) + '.csv')
 
         # Build the input file for construction scheduler if needed
         if make_building_table:
             bldg_table = get_building_table(plant_characteristics, scaling_table)
-            bldg_table.to_csv('./out/' + plant + time_folder + '/base_' + plant + 'buildingtable.csv')
+            bldg_table.to_csv(path + '/out/' + plant + time_folder + '/base_' + plant + 'buildingtable.csv')
         
         # Scale the direct costs based on the scaling table
         dfNP = scale_direct_costs.scale_direct_costs(basis_fname, scaling_table, plant_characteristics, scalars_dict)
@@ -182,20 +182,20 @@ def run_ncet(plant, path, orders, plant_fname, param_fname, basis_fname, mc_runs
             # Build an output dictionary of all the results for monte carlo
             if mc_runs!=1:
                 if save_all:
-                    dfNP.to_csv('./out/' + plant + time_folder + '/raw/mc_' + plant + '_run' + str(i) + '_unit' + str(j+1) + '.csv')
+                    dfNP.to_csv(path + '/out/' + plant + time_folder + '/raw/mc_' + plant + '_run' + str(i) + '_unit' + str(j+1) + '.csv')
                 output_dict = build_mc_output_series(dfNP)
                 output_dict['Run'] = i
                 mc_dict_list[j].append(output_dict)
             else:
-                dfNP.to_csv('./out/' + plant + time_folder + '/new' + plant + '_Base_' + str(j) + '.csv')
+                dfNP.to_csv(path + '/out/' + plant + time_folder + '/new' + plant + '_Base_' + str(j) + '.csv')
     
     # Save all the output dictionaries from montecarlo
     if mc_runs!=1: 
         for i, dict_list in enumerate(mc_dict_list):
-            pd.DataFrame(dict_list).to_csv('./out/' + plant + time_folder + '/mc_output_' + plant + '_unit' + str(i+1) + '.csv')
-        scheduler_table.to_csv('./out/' + plant + time_folder + '/mc_' + plant + '_scheduler_table.csv')
+            pd.DataFrame(dict_list).to_csv(path + '/out/' + plant + time_folder + '/mc_output_' + plant + '_unit' + str(i+1) + '.csv')
+        scheduler_table.to_csv(path + '/out/' + plant + time_folder + '/mc_' + plant + '_scheduler_table.csv')
     else:
-        scheduler_table.to_csv('./out/' + plant + time_folder + '/' + plant + '_scheduler_table.csv')
+        scheduler_table.to_csv(path + '/out/' + plant + time_folder + '/' + plant + '_scheduler_table.csv')
 
 
 if __name__ == '__main__':
