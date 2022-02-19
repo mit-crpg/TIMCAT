@@ -189,16 +189,16 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
             if aux["Name"] == "Containment Liner":
                 # default is option 1, scaled by superstructure area for steel lined concrete, these are the exceptions
                 if aux["Superstructure type"] == "Stainless steel vessel":
-                    scaling_table.at[account, "Option"] = 0
+                    scaling_table.loc[account, "Option"] = 0
                     mass = 8000.0 * (
                         superVol + subVol
                     )  # 8000 kg/m^3 is the density of stainless steel
                     print("		Mass of containment vessel: {:.0F}".format(mass))
-                    scaling_table.at[account, "New Base Unit Value"] = mass
-                    scaling_table.at[
+                    scaling_table.loc[account, "New Base Unit Value"] = mass
+                    scaling_table.loc[
                         account, "Multipliers"
                     ] = 2.3  # stainless more than carbon steel
-                    scaling_table.at[
+                    scaling_table.loc[
                         account, "Count per plant"
                     ] = plant_characteristics["Number of Reactors"]
                     plant_characteristics["Containment type"] = "Steel vessel"
@@ -210,16 +210,16 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
                         "Containment type"
                     ] = "Standalone steel building"
                     # The multipliers came from the EEDB APWR6/PWR6/BE account breakdowns
-                    scaling_table.at[
+                    scaling_table.loc[
                         account, "Factory Equipment Cost Mult"
                     ] *= scalars_dict["212.15 Factory cost mult"]
-                    scaling_table.at[account, "Site Labor Hours Mult"] *= scalars_dict[
+                    scaling_table.loc[account, "Site Labor Hours Mult"] *= scalars_dict[
                         "212.15 Labor hours mult"
                     ]
-                    scaling_table.at[account, "Site Labor Cost Mult"] *= scalars_dict[
+                    scaling_table.loc[account, "Site Labor Cost Mult"] *= scalars_dict[
                         "212.15 Labor cost mult"
                     ]
-                    scaling_table.at[
+                    scaling_table.loc[
                         account, "Site Material Cost Mult"
                     ] *= scalars_dict["212.15 Material cost mult"]
                     plant_characteristics["Containment type"] = [
@@ -240,7 +240,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
         elif aux["Method"] == "RX power scaling":
             idx = scaling_table.index.str.match(account)
             scaling_table.loc[idx, "Option"] = 2
-            scaling_table.at[idx, "New Base Unit Value"] = (
+            scaling_table.loc[idx, "New Base Unit Value"] = (
                 plant_characteristics["Total Plant Thermal Power (MWt)"]
                 / plant_characteristics["Number of Reactors"]
             )
@@ -248,12 +248,12 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
         elif aux["Method"] == "Fixed cost":
             idx = scaling_table.index.str.match(account)
             scaling_table.loc[idx, "Option"] = 4
-            scaling_table.at[idx, "New Base Unit Value"] = 1
+            scaling_table.loc[idx, "New Base Unit Value"] = 1
 
         elif aux["Method"] == "Direct cost":
             idx = scaling_table.index.str.match(account)
             scaling_table.loc[idx, "Option"] = 3
-            scaling_table.at[idx, "New Base Unit Value"] = df21.loc[
+            scaling_table.loc[idx, "New Base Unit Value"] = df21.loc[
                 account, "Direct cost per RX (2018 USD)"
             ]
 
@@ -360,31 +360,31 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
     scaling_table.loc[accounts_4, "Scaling Factor"] = 1.0
 
     for account in accounts_0:
-        if not isinstance(scaling_table.at[account, "Option 0 Formula"], list):
+        if not isinstance(scaling_table.loc[account, "Option 0 Formula"], list):
             varz = (
-                scaling_table.at[account, "Option 0 Formula"]
+                scaling_table.loc[account, "Option 0 Formula"]
                 .replace("[", "")
                 .replace("]", "")
                 .split(",")
             )
         else:
-            varz = scaling_table.at[account, "Option 0 Formula"]
+            varz = scaling_table.loc[account, "Option 0 Formula"]
         varz = [float(x) for x in varz]
         if len(varz) == 4:
-            scaling_table.at[account, "Scaling Factor"] = (
+            scaling_table.loc[account, "Scaling Factor"] = (
                 (
                     varz[0]
                     + varz[1]
-                    * scaling_table.at[account, "New Base Unit Value"] ** varz[2]
+                    * scaling_table.loc[account, "New Base Unit Value"] ** varz[2]
                 )
                 * varz[3]
-                / scaling_table.at[account, "EEDB Base Unit Value 3"]
+                / scaling_table.loc[account, "EEDB Base Unit Value 3"]
             )
         elif len(varz) == 1:
-            scaling_table.at[account, "Scaling Factor"] = (
+            scaling_table.loc[account, "Scaling Factor"] = (
                 varz[0]
-                * scaling_table.at[account, "New Base Unit Value"]
-                / scaling_table.at[account, "EEDB Base Unit Value 3"]
+                * scaling_table.loc[account, "New Base Unit Value"]
+                / scaling_table.loc[account, "EEDB Base Unit Value 3"]
             )
 
     # --------------------------------------------- Accounting for # per plant -------------------------------------#
@@ -393,13 +393,13 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
 
     # --------------------------------------------- Add interior concrete to SC1 concrete ------------------------------------#
     plant_characteristics["sc1_concrete"] += (
-        scaling_table.at["A.212.140", "Scaling Factor"] * 8000 / 1.1 ** 3
+        scaling_table.loc["A.212.140", "Scaling Factor"] * 8000 / 1.1 ** 3
     )  # 8000 CY of interior concrete in EEDB
     concrete += (
-        scaling_table.at["A.212.140", "Scaling Factor"] * 8000 / 1.1 ** 3
+        scaling_table.loc["A.212.140", "Scaling Factor"] * 8000 / 1.1 ** 3
     )  # 8000 CY of interior concrete in EEDB
     print("Concrete total: {:.0F}".format(concrete))
     print("SC1 Concrete: {:.0F}".format(plant_characteristics["sc1_concrete"]))
-    # print(scaling_table.at['A.212.140', 'Scaling Factor']*8000/1.1**3)
+    # print(scaling_table.loc['A.212.140', 'Scaling Factor']*8000/1.1**3)
 
     return scaling_table, plant_characteristics

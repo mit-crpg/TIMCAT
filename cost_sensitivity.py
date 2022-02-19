@@ -128,7 +128,7 @@ def rand_input_scaling(fname):
             df_inputs["Option " + str(option) + " Exponent"] = df_inputs[
                 "Option " + str(option) + " Exponent"
             ].map(scalars_dict)
-            df_inputs.at[aux, "Option " + str(option) + " Exponent"] = numbers
+            df_inputs.loc[aux, "Option " + str(option) + " Exponent"] = numbers
 
     return df_inputs, scalars_dict
 
@@ -357,7 +357,7 @@ if __name__ == "__main__":
 
     plant = "PWR12ME"
     BASIS_FNAME = (
-        "PATHTOCHANGE/PWR12_ME_inflated_reduced.csv"
+        "PATHTOFILE/PWR12_ME_inflated_reduced.csv"
     )
     plant_fname = "inputfile_" + plant + ".xlsx"
 

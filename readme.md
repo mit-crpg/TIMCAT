@@ -18,7 +18,7 @@ To install TIMCAT, git clone this package into your preferred location:
 ``gh repo clone mit-crpg/TIMCAT``
 
 Make sure to properly obtain the EEDB cost basis (example: 'PWR12_ME_inflated_reduced.csv'), which contains the cost
-codes and design values for a reference plant.
+codes and design values for a reference plant. Put the file somewhere safe, and do not commit it to git if you are making changes to the code.
 
 Installing for the first time use which looks at the setup.py file and installs the packages. Run with sudo. If you use
 other packages in the code, add the required package to the setup.py file so it will install.
@@ -32,6 +32,16 @@ To update, simply reinstall with pip from the TIMCAT directory:
 (And to uninstall, simply run: ``pip3 uninstall TIMCAT``)
 
 # Usage
-
 As configured, TIMCAT is run by editing input files and their names in cost_sensitivity.py and running
 cost_sensitivity.py. 
+
+You must specify the basis table, and the input files. Edit these lines in cost_sensitivity.py:
+
+```python
+plant = "PWR12ME"
+BASIS_FNAME = (
+    "PATHTOFILE/PWR12_ME_inflated_reduced.csv"
+)
+plant_fname = "inputfile_" + plant + ".xlsx"
+```
+
