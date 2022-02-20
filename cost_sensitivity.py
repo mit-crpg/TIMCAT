@@ -22,6 +22,7 @@ def update_input_scaling(fname, case="Base"):
     # Create dictionary of parameters for the specific case
     scalars_dict = df_scalars.set_index("Parameter")[case + " value"].to_dict()
 
+    print(df_inputs)
     # Map the new values to the input df
     options = [0, 1, 2]
     for option in options:
@@ -53,7 +54,7 @@ def update_input_scaling(fname, case="Base"):
             df_inputs["Option " + str(option) + " Exponent"] = df_inputs[
                 "Option " + str(option) + " Exponent"
             ].map(scalars_dict)
-            df_inputs.at[aux, "Option " + str(option) + " Exponent"] = numbers
+            df_inputs.loc[aux, "Option " + str(option) + " Exponent"] = numbers
 
     return df_inputs, scalars_dict
 
@@ -357,7 +358,7 @@ if __name__ == "__main__":
 
     plant = "PWR12ME"
     BASIS_FNAME = (
-        "PATHTOFILE/PWR12_ME_inflated_reduced.csv"
+        "/Users/nitwit/Dropbox/hans/Omega-13/OMEGA14DATA/PWR12_ME_inflated_reduced.csv"
     )
     plant_fname = "inputfile_" + plant + ".xlsx"
 
