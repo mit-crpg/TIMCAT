@@ -243,6 +243,11 @@ def special_cases(dfNewPlant, plant_characteristics, scalars_dict):
             "E-beam weld cost reduction mult"
         ]
 
+    if (plant_characteristics['Containment type'] == 'Steel vessel') and (plant_characteristics['Containment thickness (m)'] <= .11):
+        dfNewPlant.loc['A.212.15', (costs + hours)] *= scalars_dict[
+            'E-beam weld cost reduction mult'
+            ]
+
     if plant_characteristics[
         "Integral PWR"
     ]:  # no vessel cost for an integrated steam generator/pressurizer/vessel

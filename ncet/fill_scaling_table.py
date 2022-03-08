@@ -203,6 +203,21 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
                     ] = plant_characteristics["Number of Reactors"]
                     plant_characteristics["Containment type"] = "Steel vessel"
                     plant_characteristics["Containment vessel mass (kg)"] = mass
+                    plant_characteristics['Containment thickness (m)'] = aux['Superstructure thickness (meters)']
+
+                elif aux['Superstructure type']=='Carbon steel vessel':
+                    scaling_table.loc[account, "Option"] = 0
+                    mass = 8000.0 * (
+                        superVol + subVol
+                    )  # 8000 kg/m^3 is the density of stainless steel
+                    print("		Mass of containment vessel: {:.0F}".format(mass))
+                    scaling_table.loc[account, "New Base Unit Value"] = mass
+                    scaling_table.loc[
+                        account, "Count per plant"
+                    ] = plant_characteristics["Number of Reactors"]
+                    plant_characteristics["Containment type"] = "Steel vessel"
+                    plant_characteristics["Containment vessel mass (kg)"] = mass
+                    plant_characteristics['Containment thickness (m)'] = aux['Superstructure thickness (meters)']
 
                 elif aux["Superstructure type"] == "Standalone steel building":
 
@@ -278,9 +293,10 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
 
     idx_TEPS = df_big.index[df_big["Method"] == "Turbine electric power scaling"]
     scaling_table.loc[idx_TEPS, "Option"] = 2
-    scaling_table.loc[idx_TEPS, "New Base Unit Value"] = plant_characteristics[
-        "Net Electrical Power (MWe)"
-    ]
+    scaling_table.loc[idx_TEPS, "New Base Unit Value"] = (
+        plant_characteristics["Net Electrical Power (MWe)"] 
+        / plant_characteristics['Number of turbines']
+    )
     scaling_table.loc[idx_TEPS, "Count per plant"] = plant_characteristics[
         "Number of Reactors"
     ]
