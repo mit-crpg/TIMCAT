@@ -11,7 +11,9 @@ def cost_multipliers(scaling_table, scalars_dict, plant_characteristics):
         for simple_key in simple_keys:
             account = simple_key.split("]")[1].split(":")[0].strip()
             idx = scaling_table.index.str.match(account)
-            scaling_table.loc[idx, "Multipliers"] *= scalars_dict[simple_key]
+            # Don't do the cut the piping cost if a specific pipe weight was provided
+			if (account != 'A.222.12') and (not all(scaling_table.loc[idx, 'Option']==1)):
+				scaling_table.loc[idx, 'Multipliers'] *= scalars_dict[simple_key]
 
     # Passive safety systems scalars
     if plant_characteristics["Safety"] == "Passive":
