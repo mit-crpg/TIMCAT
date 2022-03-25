@@ -42,5 +42,7 @@ BASIS_FNAME = (
 plant_fname = "inputfile_" + plant + ".xlsx"
 ```
 
-# Reference
+# File descriptions
+
+# References
 The source cost data was from the Economic Energy Data Base published by the US DOE in 1987. The full dataset can be accessed here: https://rsicc.ornl.gov/codes/psr/psr5/psr-531.html
