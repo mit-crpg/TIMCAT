@@ -28,7 +28,7 @@ To update, simply reinstall with pip from the TIMCAT directory:
 
 (And to uninstall, simply run: ``pip3 uninstall TIMCAT``)
 
-# Usage
+## Usage
 As configured, TIMCAT is run by editing input files and their names in cost_sensitivity.py and running
 cost_sensitivity.py. 
 
@@ -42,7 +42,14 @@ BASIS_FNAME = (
 plant_fname = "inputfile_" + plant + ".xlsx"
 ```
 
-# File descriptions
+## File descriptions
+### "PWR12_ME_inflated_reduced.csv"
+This is the reference cost data for the PWR12-ME plant. Costs were inflated from 1987 USD in EEDB to 2018 USD.
 
-# References
+### "PWR12_ME_inflated_reduced.csv"
+This is the reference cost data for the PWR12-ME plant. Costs were inflated from 1987 USD in EEDB to 2018 USD.
+
+
+
+## References
 The source cost data was from the Economic Energy Data Base published by the US DOE in 1987. The full dataset can be accessed here: https://rsicc.ornl.gov/codes/psr/psr5/psr-531.html
