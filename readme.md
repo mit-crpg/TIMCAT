@@ -43,12 +43,14 @@ plant_fname = "inputfile_" + plant + ".xlsx"
 ```
 
 ## File descriptions
-### "PWR12_ME_inflated_reduced.csv"
+#### "PWR12_ME_inflated_reduced.csv"
 This is the reference cost data for the PWR12-ME plant. Costs were inflated from 1987 USD in EEDB to 2018 USD.
 
-### "PWR12_ME_inflated_reduced.csv"
-This is the reference cost data for the PWR12-ME plant. Costs were inflated from 1987 USD in EEDB to 2018 USD.
+#### "inputfile_PWR12ME"
+This is the input file template for estimating the costs of a new plant. There are 9 tabs: 6 for direct cost categories, 1 for learning inputs, 1 for modularization inputs, and 1 for general plant characteristics. 
 
+#### "inputfile_PWR12ME"
+This is the input file template for estimating the costs of a new plant. There are 9 tabs: 6 for direct cost categories, 1 for learning inputs, 1 for modularization inputs, and 1 for general plant characteristics. 
 
 
 ## References
