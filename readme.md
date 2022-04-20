@@ -1,9 +1,11 @@
 ## What is TIMCAT?
+TIMCAT hosts Nuclear Cost Estimation Tool (NCET)
 
-See the paper.
-"William R Stewart, Koroush Shirvan; Capital cost estimation for advanced nuclear power plants" 2021
-
+See the papers:
 https://osf.io/erm3g/download
+https://osf.io/j45aw/download
+
+For more info and access to already modeled plants contact kshirvan@mit.edu
 
 ## Quick Install
 
