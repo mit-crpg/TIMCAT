@@ -1,14 +1,7 @@
 ## What is TIMCAT?
 TIMCAT hosts Nuclear Cost Estimation Tool (NCET)
 
-Citation: Steward W.R., Shirvan K., Capital cost estimation for advanced nuclear power plants,” Renewable and Sustainable Energy Reviews, Nov. 2021, 111880 https://doi.org/10.1016/j.rser.2021.111880
-
-
-See the papers:
-
-https://osf.io/erm3g/download
-
-https://osf.io/j45aw/download
+Citation: Stewart W.R., Shirvan K., "Capital cost estimation for advanced nuclear power plants," Renewable and Sustainable Energy Reviews, Nov. 2021, 111880 https://doi.org/10.1016/j.rser.2021.111880
 
 
 For more info and access to already modeled plants contact: kshirvan@mit.edu
@@ -69,3 +62,11 @@ These are template files to organize the output data to run the construction sch
 
 ## References
 The source cost data was from the Economic Energy Data Base published by the US DOE in 1987. The full dataset can be requested here: https://rsicc.ornl.gov/codes/psr/psr5/psr-531.html
+
+Stewart W.R., Shirvan K., "Capital cost estimation for advanced nuclear power plants," Renewable and Sustainable Energy Reviews, Nov. 2021, 111880 https://doi.org/10.1016/j.rser.2021.111880
+
+Preprints:
+
+https://osf.io/erm3g/download
+
+https://osf.io/j45aw/download
