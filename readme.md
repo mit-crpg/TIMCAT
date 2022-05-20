@@ -4,7 +4,7 @@ TIMCAT hosts Nuclear Cost Estimation Tool (NCET)
 Citation: Stewart W.R., Shirvan K., "Capital cost estimation for advanced nuclear power plants," Renewable and Sustainable Energy Reviews, Nov. 2021, 111880 https://doi.org/10.1016/j.rser.2021.111880
 
 
-For more info and access to already modeled plants contact: kshirvan@mit.edu
+For more info and access to other already modeled plants contact: Prof. Koroush Shirvan kshirvan@mit.edu
 
 ## Quick Install
 
