@@ -6,6 +6,11 @@ Citation: Stewart W.R., Shirvan K., "Capital cost estimation for advanced nuclea
 
 For more info and access to other already modeled plants contact: Prof. Koroush Shirvan kshirvan@mit.edu
 
+## Acknowledgements
+This work has been primarily supported by Fortum, www.fortum.com. 
+
+Partial financial support by Department of Energy: Nuclear Energy University Program (DOE-NE0008989), ARC-20 (DE-NE0009049) and ARPA-E (DEAR0000978) and by Électricité De France (EDF).
+
 ## Quick Install
 
 Use python 3.9
