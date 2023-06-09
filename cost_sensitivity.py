@@ -355,7 +355,7 @@ if __name__ == "__main__":
     # cases: match those on param_ranges
     # orders: how many plants to run the learning model out to and capitalize the factory costs over
 
-    plant = "NC-SMR"
+    plant = "PWR12ME"
     BASIS_FNAME = (
         "./PWR12_ME_inflated_reduced.csv"
     )

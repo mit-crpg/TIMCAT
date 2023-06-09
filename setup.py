@@ -14,7 +14,7 @@ setup(
         "pandas",
         "scipy",
         "matplotlib",
-        "openpyxl",
+        "openpyxl==3.1.0",
         "pytest",
         "m2r2",
         "tqdm",
