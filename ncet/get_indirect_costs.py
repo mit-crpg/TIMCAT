@@ -151,8 +151,10 @@ def get_indirect_costs(dfNewPlant, plant_characteristics, learning_rate, scalars
     np_indirect_cost["Account Description"] = "Indirect Costs"
     np_indirect_cost["Subcategories"] = 1
 
-    dfNewPlant = dfNewPlant.append(pd.Series(np_indirect_cost, name="A.9"))
-
+    dfNewPlant = pd.concat(
+        [dfNewPlant, pd.Series(np_indirect_cost, name="A.9").to_frame().T], 
+    )
+    
     # #----------------- Divide costs among correct overrun accounts ----------------
     # for col in ['Site Labor Hours', 'Site Labor Cost', 'Site Material Cost', 'Factory Equipment Cost']:
     # 	# pdb.set_trace()
