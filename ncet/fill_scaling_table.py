@@ -55,6 +55,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
         sheet_name="21-Structures&Improvements",
         skiprows=[0],
         index_col="Account",
+        keep_default_na=False, na_values=['NaN'],
     )
     df22 = pd.read_excel(
         pjoin(path, fname),
@@ -274,10 +275,8 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
 
     # ------------------------------------------------------Account 22-26 ------------------------------------------------------#
     print("Evaluating account 22 - 26")
-    df_big = df22.append(df23)
-    df_big = df_big.append(df24)
-    df_big = df_big.append(df25)
-    df_big = df_big.append(df26)
+    df_big = pd.concat([df22, df23, df24, df25, df26])
+
 
     idx_PPS = df_big.index[df_big["Method"] == "Plant power scaling"]
     scaling_table.loc[idx_PPS, "Option"] = 2
