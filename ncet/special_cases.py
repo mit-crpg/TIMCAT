@@ -253,7 +253,7 @@ def special_cases(dfNewPlant, plant_characteristics, scalars_dict):
     if plant_characteristics[
         "Integral PWR"
     ]:  # no vessel cost for an integrated steam generator/pressurizer/vessel
-        dfNewPlant.loc["A.222.13", (costs + hours)] *= scalars_dict[
+        dfNewPlant.loc["A.222.132", (costs + hours)] *= scalars_dict[
             "222.13 Steam generators reduction mult"
         ]
         dfNewPlant.loc["A.222.14", (costs + hours)] *= scalars_dict[
