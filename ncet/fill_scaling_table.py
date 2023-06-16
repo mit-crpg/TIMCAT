@@ -298,7 +298,7 @@ def fill_scaling_table(path, fname, base, scalars_dict, scaling_table=None):
         / plant_characteristics['Number of turbines']
     )
     scaling_table.loc[idx_TEPS, "Count per plant"] = plant_characteristics[
-        "Number of Reactors"
+        "Number of turbines"
     ]
 
     idx_RPS = df_big.index[df_big["Method"] == "RX power scaling"]
