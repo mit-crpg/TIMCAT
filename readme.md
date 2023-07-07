@@ -75,3 +75,7 @@ Preprints:
 https://osf.io/erm3g/download
 
 https://osf.io/j45aw/download
+
+
+## License
+TIMCAT is approved for distribution under the MIT license.
