@@ -10,9 +10,10 @@ def get_indirect_costs(dfNewPlant, plant_characteristics, learning_rate, scalars
     # dfOverrun.set_index('Account', inplace=True)
     # idx_indirect_dfOverrun = dfOverrun.index.str.match('A.9')
     # dfOverrun = dfOverrun.loc[idx_indirect_dfOverrun] #reduce the overrun cost DB just to the indirect cost accounts
-    construction_months = (
-        plant_characteristics["Construction duration (months)"] * learning_rate
-    )
+    # construction_months = (
+    #     plant_characteristics["Construction duration (months)"] * learning_rate
+    # )
+    construction_months = plant_characteristics['FOAK construction duration (months)'] * learning_rate
 
     root_idx = dfNewPlant["Subcategories"] == 1
     NQA_idx = dfNewPlant["NQA1"] == 1
@@ -63,11 +64,17 @@ def get_indirect_costs(dfNewPlant, plant_characteristics, learning_rate, scalars
     avgNumWorkersNewPlant = (
         total_direct_labor_hours / construction_months / 160
     )  # 160 working hours in a month
-    mult_workers = np.max(
-        [1, avgNumWorkersNewPlant / 1058]
+    # mult_workers = np.max(
+    #     [1, avgNumWorkersNewPlant / 1058]
+    # )  # 1058 comes from the EEDB average 12.1 million hours over 72 months, setting the max =1, assuming the BE plant was peak efficiency in staffing
+    mult_workers = (
+        avgNumWorkersNewPlant / 1058
     )  # 1058 comes from the EEDB average 12.1 million hours over 72 months, setting the max =1, assuming the BE plant was peak efficiency in staffing
+    # mult_constructionTime = np.max(
+    #     [1, construction_months / 72]
+    # )  # the PWR12 better experience from EEDB took 72 months to build, assume there isnt a gain for shorter construction here
     mult_constructionTime = np.max(
-        [1, construction_months / 72]
+        [1, construction_months / plant_characteristics['NOAK construction duration (months)']]
     )  # the PWR12 better experience from EEDB took 72 months to build, assume there isnt a gain for shorter construction here
     print("Construction duration is {:.0F}".format(construction_months))
     print("Total direct labor hours is {:.0F}".format(total_direct_labor_hours))
