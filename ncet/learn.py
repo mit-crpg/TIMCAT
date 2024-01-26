@@ -24,6 +24,7 @@ def learn(path, fname, dfNewPlant, orders, scalars_dict, idx_modules):
     mat_learning_factor = np.maximum(
         mat_min, plants ** np.log2(1 - mat_rate)
     )  # learning rate at  9%, max reduction 27%
+    lab_learning_factor = np.maximum(lab_min, plants**np.log2(1-lab_rate))
 
     cpp = dfNewPlant["Count per plant"].astype(int)  # count per plant
     dfNewPlant["Initial unit"] = 1
@@ -76,4 +77,4 @@ def learn(path, fname, dfNewPlant, orders, scalars_dict, idx_modules):
         df_learn["counts"] += cpp
         newPlant_list.append(df)
 
-    return newPlant_list, mat_learning_factor
+    return newPlant_list, lab_learning_factor
