@@ -260,4 +260,13 @@ def special_cases(dfNewPlant, plant_characteristics, scalars_dict):
             "222.14 Pressurizer reduction mult"
         ]
 
+    # This is the case where the SG vessel is part of the primary pressure boundary (not the case for 
+	# PWRs where tubes are the primary pressure boundary). 
+	# The vessel cost goes up by a factor of 3.5, which raise the total SG cost by 2.25
+	# The tubes for the PWR are inconel and more expensive than the stainless equivalent for HTGRs,
+	# but the HTGR coiling is more complicated, so call it a wash in cost per area
+    if plant_characteristics['SG vessel is primary pressure boundary'] and not plant_characteristics['Integral PWR']: 
+        dfNewPlant.loc['A.222.132', (costs + hours)] *= 2.25
+        # pdb.set_trace()
+
     return dfNewPlant
